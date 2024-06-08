@@ -1,7 +1,7 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
-const MonthBill = () => {
+const BillPayment = () => {
   const [studentBill, setStudentBill] = useState([]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -129,4 +129,4 @@ const MonthBill = () => {
   )
 }
 
-export default MonthBill
+export default BillPayment
