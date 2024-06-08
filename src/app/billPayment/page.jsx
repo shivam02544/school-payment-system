@@ -125,7 +125,6 @@ const MonthBill = () => {
           })
         }
       </div>
-
     </div>
   )
 }
