@@ -85,7 +85,7 @@ const Students = () => {
           <form onSubmit={(e) => handleSubmit(e)} className="flex">
             <select className="select select-bordered " name="option">
               <option value="1" >Student name</option>
-              <option value="2">Father's name</option>
+              <option value="2">Father&apos;s name</option>
               <option value="3">Village name</option>
               <option value="4">Class</option>
             </select>
@@ -110,8 +110,8 @@ const Students = () => {
                 <span className="text-lg">Name: <b className="text-lg">{student.name}</b></span>
                 <span>Class: {student.class}</span>
                 <span>Roll no: {student.rollNo}</span>
-                <span>Father's name: {student.fatherName}</span>
-                <span>Mother's name: {student.motherName}</span>
+                <span>Father&apos;s name: {student.fatherName}</span>
+                <span>Mother&apos;s name: {student.motherName}</span>
                 <span>Date of birth: {student.dob}</span>
                 <span>Mobile number: {student.mobileNumber}</span>
                 <span>Aadhar number: {student.aadharNumber}</span>
@@ -151,7 +151,7 @@ const Students = () => {
                   />
                   <input
                     type="text"
-                    placeholder="Father's name"
+                    placeholder="Father&apos;s name"
                     className="input input-bordered w-full max-w-xs"
                     name='fatherName'
                     value={currentStudent.fatherName}
@@ -162,7 +162,7 @@ const Students = () => {
                 <div className='flex gap-4'>
                   <input
                     type="text"
-                    placeholder="Mother's name"
+                    placeholder="Mother&apos;s name"
                     className="input input-bordered w-full max-w-xs"
                     name='motherName'
                     value={currentStudent.motherName}

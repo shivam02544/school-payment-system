@@ -97,7 +97,7 @@ const MonthBill = () => {
                                             <span>NAME: {studentBill.name}</span>
                                             <span>CLASS: {studentBill.class}</span>
                                         </div>
-                                        <span className='px-3'>PARENT'S NAME: {studentBill.fatherName}</span>
+                                        <span className='px-3'>PARENT&apos;S NAME: {studentBill.fatherName}</span>
                                         <div className='px-3 flex justify-between'>
                                             <span>ADDRESS: {studentBill.village}</span>
                                             <span>DUES ON: {monthName[new Date().getMonth()]}</span>

@@ -81,7 +81,7 @@ const BillPayment = () => {
                       Name: <b className="text-lg">{bill.name}</b>
                     </span>
                     <span>Class: {bill.class}</span>
-                    <span>Father's Name: {bill.fatherName}</span>
+                    <span>Father&apos;s Name: {bill.fatherName}</span>
                     <span>Village: {bill.village}</span>
                     <span>Tuition Fee: ₹{bill.tuitionFee}</span>
                     <span>Transport Fee: ₹{bill.transportFee}</span>

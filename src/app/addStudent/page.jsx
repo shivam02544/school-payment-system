@@ -43,7 +43,7 @@ const AddStudent = () => {
                         />
                         <input
                             type="text"
-                            placeholder="Father's name"
+                            placeholder="Father&apos;s name"
                             className="input input-bordered w-full max-w-xs"
                             name='fatherName'
                             required
@@ -52,7 +52,7 @@ const AddStudent = () => {
                     <div className='flex gap-4'>
                         <input
                             type="text"
-                            placeholder="Mother's name"
+                            placeholder="Mother&apos;s name"
                             className="input input-bordered w-full max-w-xs"
                             name='motherName'
                             required
