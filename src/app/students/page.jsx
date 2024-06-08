@@ -2,7 +2,7 @@
 import HeaderAfterLogin from "@/components/HeaderAfterLogin";
 import React, { useState } from "react";
 
-const page = () => {
+const Students = () => {
   const [studentData, setStudentData] = useState([]);
   const [showData, setShowData] = useState(false)
   const [currentStudent, setCurrentStudent] = useState(null);
@@ -37,7 +37,7 @@ const page = () => {
         setShowData(false);
       }
       else {
-        await setStudentData(data)
+        setStudentData(data)
         setShowData(true)
       }
     } catch (error) {
@@ -304,4 +304,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Students;

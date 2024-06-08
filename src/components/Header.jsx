@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '@/img/anandalogo.jpg'
+
 const Header = () => {
     return (
         <div className="navbar bg-gray-200 flex gap-4 px-6 shadow-md">

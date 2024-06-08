@@ -2,7 +2,7 @@
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React from 'react'
 
-const page = () => {
+const AddStudent = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -162,4 +162,4 @@ const page = () => {
     )
 }
 
-export default page
+export default AddStudent

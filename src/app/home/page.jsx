@@ -1,7 +1,7 @@
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React from 'react'
 
-const page = () => {
+const Home = () => {
     return (
         <div>
             <HeaderAfterLogin />
@@ -10,4 +10,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Home

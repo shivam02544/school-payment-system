@@ -2,7 +2,7 @@
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
 
-const page = () => {
+const MonthBill = () => {
     const [studentBills, SetStudentBills] = useState([]);
     const monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     function printBill() {
@@ -148,4 +148,4 @@ const page = () => {
     )
 }
 
-export default page
+export default MonthBill
