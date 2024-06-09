@@ -32,8 +32,8 @@ const MonthBill = () => {
                 },
                 body: JSON.stringify(formObject),
             })
-            if (response.ok) {
-                const result = await response.json();
+            if (res.ok) {
+                const result = await res.json();
                 alert(result.msg);
             } else {
                 alert("Failed to generate bill.");

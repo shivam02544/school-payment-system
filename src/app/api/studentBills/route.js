@@ -65,7 +65,7 @@ export const POST = async (request) => {
     studentDetail.otherFee = bill.dueFee;
     await studentDetail.save();
   });
-  let schoolDetail = await SchoolDetail.findOne();
+  let schoolDetail = await SchoolDetail.findOne({}, "billGeneratedMonth");
   if (schoolDetail) {
     schoolDetail.billGeneratedMonth = new Date().getMonth();
     await schoolDetail.save();
