@@ -42,55 +42,40 @@ export const GET = async (request) => {
 };
 
 export const POST = async (request) => {
-  try {
-    await connectDb();
-    const body = await request.json();
-    const allBills = await StudentPaymentBillSchema.find();
-
-    await Promise.all(
-      allBills.map(async (bill) => {
-        bill.otherFee = body.otherFee;
-        bill.lastRemainingFee = bill.dueFee;
-        bill.dueFee =
-          bill.lastRemainingFee +
-          bill.tuitionFee +
-          bill.otherFee +
-          bill.transportFee;
-
-        if (body.examFee === "yes") {
-          bill.dueFee += bill.examFee;
-          bill.isExamFeeAdded = true;
-        } else {
-          bill.isExamFeeAdded = false;
-        }
-
-        bill.currentMonthPaidBill = 0;
-        await bill.save();
-
-        const studentDetail = await StudentSchema.findById(bill.studentID);
-        studentDetail.otherFee = bill.dueFee;
-        await studentDetail.save();
-      })
-    );
-
-    let schoolDetail = await SchoolDetail.findOne();
-    if (schoolDetail) {
-      schoolDetail.billGeneratedMonth = new Date().getMonth();
+  await connectDb();
+  const body = await request.json();
+  const allBills = await StudentPaymentBillSchema.find();
+  allBills.forEach(async (bill) => {
+    bill.otherFee = body.otherFee;
+    bill.lastRemainingFee = bill.dueFee;
+    bill.dueFee =
+      bill.lastRemainingFee +
+      bill.tuitionFee +
+      bill.otherFee +
+      bill.transportFee;
+    if (body.examFee == "yes") {
+      bill.dueFee = bill.dueFee + bill.examFee;
+      bill.isExamFeeAdded = true;
     } else {
-      schoolDetail = new SchoolDetail({
-        billGeneratedMonth: new Date().getMonth(),
-      });
+      bill.isExamFeeAdded = false;
     }
+    bill.currenMonthPayedBill = 0;
+    await bill.save();
+    const studentDetail = await StudentSchema.findById(bill.studentID);
+    studentDetail.otherFee = bill.dueFee;
+    await studentDetail.save();
+  });
+  let schoolDetail = await SchoolDetail.findOne();
+  if (schoolDetail) {
+    schoolDetail.billGeneratedMonth = new Date().getMonth();
     await schoolDetail.save();
-
-    return NextResponse.json({
-      msg: "Bill generated successfully. You may see the students' bill after clicking on Show Bill button.",
+  } else {
+    schoolDetail = new SchoolDetail({
+      billGeneratedMonth: new Date().getMonth(),
     });
-  } catch (error) {
-    console.error("Error generating bill:", error);
-    return NextResponse.json(
-      { error: "Failed to generate bill." },
-      { status: 500 }
-    );
+    await schoolDetail.save();
   }
+  return NextResponse.json({
+    msg: "Bill generated successfully. You may see the students bill after clicking on Show Bill button.",
+  });
 };
