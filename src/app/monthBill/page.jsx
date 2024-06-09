@@ -15,7 +15,7 @@ const MonthBill = () => {
     }
     const generateBill = (async (e) => {
         e.preventDefault();
-        let res = await fetch(`${apiUrl}/api/schoolDetail`)
+        let res = await fetch(`/api/schoolDetail`)
         let data = await res.json();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());

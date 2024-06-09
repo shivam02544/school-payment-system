@@ -4,7 +4,7 @@ import StudentSchema from "@/models/studentModel";
 import StudentPaymentBillSchema from "@/models/studentPaymentModel";
 import { NextResponse } from "next/server";
 
-export const GET = async (request) => {
+export const GET = async () => {
   try {
     await connectDb();
     const studentBills = await StudentPaymentBillSchema.find();
