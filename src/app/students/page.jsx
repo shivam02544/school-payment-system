@@ -3,6 +3,7 @@ import HeaderAfterLogin from "@/components/HeaderAfterLogin";
 import React, { useState } from "react";
 
 const Students = () => {
+  const apiUrl = process.env.API_URL || '';
   const [studentData, setStudentData] = useState([]);
   const [showData, setShowData] = useState(false)
   const [currentStudent, setCurrentStudent] = useState(null);
@@ -12,7 +13,7 @@ const Students = () => {
     const formObject = Object.fromEntries(formData.entries());
     try {
       const queryParams = new URLSearchParams(formObject).toString();
-      const res = await fetch(`/api/studentData?${queryParams}`)
+      const res = await fetch(`${apiUrl}/api/studentData?${queryParams}`)
       const data = await res.json();
       if (data.name) {
         alert("Student is not available")
@@ -30,7 +31,7 @@ const Students = () => {
   }
   const getAllStudentData = async () => {
     try {
-      const res = await fetch(`/api/studentData?$option=0&search=all`)
+      const res = await fetch(`${apiUrl}/api/studentData?$option=0&search=all`)
       const data = await res.json();
       if (data.name) {
         alert("Student is not available")
@@ -52,7 +53,7 @@ const Students = () => {
     e.preventDefault();
     const { _id, ...student } = currentStudent;
     try {
-      const res = await fetch(`/api/studentData?id=${currentStudent._id}`, {
+      const res = await fetch(`${apiUrl}/api/studentData?id=${currentStudent._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +69,7 @@ const Students = () => {
     }
   }
   async function deleteStudent(index) {
-    const res = await fetch(`/api/studentData?id=${studentData[index]._id}`, {
+    const res = await fetch(`${apiUrl}/api/studentData?id=${studentData[index]._id}`, {
       method: 'DELETE',
     });
     const data = await res.json();

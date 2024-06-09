@@ -2,6 +2,7 @@
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
 const BillPayment = () => {
+  const apiUrl = process.env.API_URL || '';
   const [studentBill, setStudentBill] = useState([]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -14,7 +15,7 @@ const BillPayment = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObject = Object.fromEntries(formData.entries());
-    const res = await fetch(`/api/studentBillPayment?name=${formObject.name}&class=${formObject.class}`)
+    const res = await fetch(`${apiUrl}/api/studentBillPayment?name=${formObject.name}&class=${formObject.class}`)
     const data = await res.json();
     if (data.name) {
       alert("Student is not available")
@@ -30,7 +31,7 @@ const BillPayment = () => {
       alert("Student payment is incomplete.");
       return
     }
-    const res = await fetch("/api/studentBillPayment", {
+    const res = await fetch(`${apiUrl}/api/studentBillPayment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

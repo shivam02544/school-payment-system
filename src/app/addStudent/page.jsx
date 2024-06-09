@@ -1,14 +1,14 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React from 'react'
-
 const AddStudent = () => {
+    const apiUrl = process.env.API_URL || '';
     async function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
         try {
-            const res = await fetch("/api/studentData", {
+            const res = await fetch(`${apiUrl}/api/studentData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

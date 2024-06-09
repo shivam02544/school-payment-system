@@ -1,8 +1,8 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
-
 const MonthBill = () => {
+    const apiUrl = process.env.API_URL || '';
     const [studentBills, SetStudentBills] = useState([]);
     const monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     function printBill() {
@@ -18,14 +18,14 @@ const MonthBill = () => {
         document.getElementById("billGenBtn").disabled = true;
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
-        const res = await fetch(`/api/schoolDetail`)
+        const res = await fetch(`${apiUrl}/api/schoolDetail`)
         let data = await res.json();
         if (data.billGeneratedMonth == new Date().getMonth()) {
             alert("Bill is already generated for this month. You may click on show all bill button for get the students bill")
             document.getElementById("billGenBtn").disabled = true;
         } else {
             document.getElementById("billGenBtn").disabled = false;
-            const res = await fetch(`/api/studentBills`, {
+            const res = await fetch(`${apiUrl}/api/studentBills`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const MonthBill = () => {
 
     }
     async function showBill() {
-        const res = await fetch(`/api/studentBills`)
+        const res = await fetch(`${apiUrl}/api/studentBills`)
         const data = await res.json();
         SetStudentBills(data);
     }
