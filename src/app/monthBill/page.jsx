@@ -18,14 +18,14 @@ const MonthBill = () => {
         document.getElementById("billGenBtn").disabled = true;
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
-        const res = await fetch(`${apiUrl}/api/schoolDetail`)
+        let res = await fetch(`${apiUrl}/api/schoolDetail`)
         let data = await res.json();
         if (data.billGeneratedMonth == new Date().getMonth()) {
             alert("Bill is already generated for this month. You may click on show all bill button for get the students bill")
             document.getElementById("billGenBtn").disabled = true;
         } else {
             document.getElementById("billGenBtn").disabled = false;
-            const res = await fetch(`${apiUrl}/api/studentBills`, {
+            res = await fetch(`${apiUrl}/api/studentBills`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
