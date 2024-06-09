@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const GET = async () => {
   await connectDb();
-  const schoolDetail = await SchoolDetail.findOne();
+  const schoolDetail = await SchoolDetail.findOne({}, "billGeneratedMonth");
   const response = NextResponse.json(
     {
       month: schoolDetail.billGeneratedMonth,

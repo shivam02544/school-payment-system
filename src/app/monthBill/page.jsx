@@ -15,10 +15,10 @@ const MonthBill = () => {
     }
     const generateBill = (async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const formObject = Object.fromEntries(formData.entries());
         let res = await fetch(`${apiUrl}/api/schoolDetail`)
         let data = await res.json();
+        const formData = new FormData(e.target);
+        const formObject = Object.fromEntries(formData.entries());
         console.log(data);
         if (data.month == new Date().getMonth()) {
             alert("Bill is already generated for this month. You may click on show all bill button for get the students bill")
