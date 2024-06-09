@@ -1,5 +1,6 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
+import { getBillMonth } from '@/helper/checkMonth';
 import React, { useState } from 'react'
 const MonthBill = () => {
     const apiUrl = process.env.API_URL || '';
@@ -15,17 +16,16 @@ const MonthBill = () => {
     }
     const generateBill = (async (e) => {
         e.preventDefault();
-        let res = await fetch(`/api/schoolDetail`)
-        let data = await res.json();
+        let month = await getBillMonth();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
-        console.log(data);
-        if (data.month == new Date().getMonth()) {
+        console.log(month);
+        if (month == new Date().getMonth()) {
             alert("Bill is already generated for this month. You may click on show all bill button for get the students bill")
             document.getElementById("billGenBtn").disabled = true;
         } else {
             document.getElementById("billGenBtn").disabled = false;
-            res = await fetch(`${apiUrl}/api/studentBills`, {
+            const res = await fetch(`${apiUrl}/api/studentBills`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
