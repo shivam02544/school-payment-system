@@ -38,7 +38,7 @@ const BillPayment = () => {
       },
       body: JSON.stringify({ studentID: studentBill[index].studentID, amount: payedAmount }),
     })
-    const data = await res.json();
+    // const data = await res.json();
   }
 
   return (

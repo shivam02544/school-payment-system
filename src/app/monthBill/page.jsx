@@ -17,13 +17,7 @@ const MonthBill = () => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
-        let res = await fetch(`${apiUrl}/api/schoolDetail`, {
-            method: 'GET',
-            headers: {
-                'Cache-Control': 'no-cache',
-                'Pragma': 'no-cache'
-            }
-        })
+        let res = await fetch(`${apiUrl}/api/schoolDetail`)
         let data = await res.json();
         console.log(data);
         if (data.month == new Date().getMonth()) {
