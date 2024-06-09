@@ -74,6 +74,7 @@ export const POST = async (request) => {
       billGeneratedMonth: new Date().getMonth(),
     });
     await schoolDetail.save();
+    await allBills.save();
   }
   return NextResponse.json({
     msg: "Bill generated successfully. You may see the students bill after clicking on Show Bill button.",
