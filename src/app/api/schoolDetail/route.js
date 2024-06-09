@@ -5,9 +5,12 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
   await connectDb();
   const schoolDetail = await SchoolDetail.findOne();
-  const response = NextResponse.json({
-    month: schoolDetail.billGeneratedMonth,
-  });
+  const response = NextResponse.json(
+    {
+      month: schoolDetail.billGeneratedMonth,
+    },
+    { status: 200 }
+  );
   response.headers.set(
     "Cache-Control",
     "no-store, no-cache, must-revalidate, proxy-revalidate"

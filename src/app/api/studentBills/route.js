@@ -31,7 +31,7 @@ export const GET = async (request) => {
       };
     });
 
-    return NextResponse.json(mergedData);
+    return NextResponse.json(mergedData, { status: 200 });
   } catch (error) {
     console.error("Error fetching student data:", error);
     return NextResponse.json(
@@ -76,7 +76,10 @@ export const POST = async (request) => {
     await schoolDetail.save();
     await allBills.save();
   }
-  return NextResponse.json({
-    msg: "Bill generated successfully. You may see the students bill after clicking on Show Bill button.",
-  });
+  return NextResponse.json(
+    {
+      msg: "Bill generated successfully. You may see the students bill after clicking on Show Bill button.",
+    },
+    { status: 200 }
+  );
 };

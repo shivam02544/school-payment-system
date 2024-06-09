@@ -14,23 +14,23 @@ export const GET = async (request) => {
       case 0:
         student = await StudentSchema.find();
         if (student.length === 0) return NextResponse.json({ name: true });
-        return NextResponse.json(student);
+        return NextResponse.json(student, { status: 200 });
       case 1:
         student = await StudentSchema.find({ name: search });
         if (student.length === 0) return NextResponse.json({ name: true });
-        return NextResponse.json(student);
+        return NextResponse.json(student, { status: 200 });
       case 2:
         student = await StudentSchema.find({ fatherName: search });
         if (student.length === 0) return NextResponse.json({ name: true });
-        return NextResponse.json(student);
+        return NextResponse.json(student, { status: 200 });
       case 3:
         student = await StudentSchema.find({ village: search });
         if (student.length === 0) return NextResponse.json({ name: true });
-        return NextResponse.json(student);
+        return NextResponse.json(student, { status: 200 });
       case 4:
         student = await StudentSchema.find({ class: search });
         if (student.length === 0) return NextResponse.json({ name: true });
-        return NextResponse.json(student);
+        return NextResponse.json(student, { status: 200 });
     }
   } catch (error) {
     console.log(error);

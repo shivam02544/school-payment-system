@@ -34,7 +34,7 @@ export const GET = async (request) => {
       };
     })
   );
-  return NextResponse.json(studentBills);
+  return NextResponse.json(studentBills, { status: 200 });
 };
 
 export const POST = async (request) => {
@@ -68,5 +68,5 @@ export const POST = async (request) => {
     fatherName: studentDetail.fatherName,
     village: studentDetail.village,
   };
-  return NextResponse.json(billData);
+  return NextResponse.json(billData, { status: 200 });
 };
