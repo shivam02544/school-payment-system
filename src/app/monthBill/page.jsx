@@ -42,7 +42,6 @@ const MonthBill = () => {
         const res = await fetch(`/api/studentBills`)
         const data = await res.json();
         SetStudentBills(data);
-        console.log(data);
     }
 
     return (
