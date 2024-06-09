@@ -13,9 +13,8 @@ const MonthBill = () => {
         document.body.innerHTML = originalContents;
         return
     }
-    async function generateBill(e) {
+    const generateBill = (async (e) => {
         e.preventDefault();
-        document.getElementById("billGenBtn").disabled = true;
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
         let res = await fetch(`${apiUrl}/api/schoolDetail`)
@@ -38,7 +37,7 @@ const MonthBill = () => {
         }
 
 
-    }
+    })
     async function showBill() {
         const res = await fetch(`${apiUrl}/api/studentBills`)
         const data = await res.json();
