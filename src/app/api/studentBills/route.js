@@ -74,7 +74,6 @@ export const POST = async (request) => {
       billGeneratedMonth: new Date().getMonth(),
     });
     await schoolDetail.save();
-    await allBills.save();
   }
   return NextResponse.json(
     {
