@@ -1,6 +1,5 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
-import { getBillMonth } from '@/helper/checkMonth';
 import React, { useState } from 'react'
 const MonthBill = () => {
     const apiUrl = process.env.API_URL || '';
@@ -16,31 +15,22 @@ const MonthBill = () => {
     }
     const generateBill = (async (e) => {
         e.preventDefault();
-        let month = await getBillMonth();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
-        console.log(month);
-        if (month == new Date().getMonth()) {
-            alert("Bill is already generated for this month. You may click on show all bill button for get the students bill")
-            document.getElementById("billGenBtn").disabled = true;
+        document.getElementById("billGenBtn").disabled = false;
+        const res = await fetch(`${apiUrl}/api/studentBills`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formObject),
+        })
+        if (res.ok) {
+            const result = await res.json();
+            alert(result.msg);
         } else {
-            document.getElementById("billGenBtn").disabled = false;
-            const res = await fetch(`${apiUrl}/api/studentBills`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formObject),
-            })
-            if (res.ok) {
-                const result = await res.json();
-                alert(result.msg);
-            } else {
-                alert("Failed to generate bill.");
-            }
+            alert("Failed to generate bill.");
         }
-
-
     })
     async function showBill() {
         const res = await fetch(`${apiUrl}/api/studentBills`)
@@ -90,7 +80,7 @@ const MonthBill = () => {
                                         <span className='px-3'>PARENT&apos;S NAME: {studentBill.fatherName}</span>
                                         <div className='px-3 flex justify-between'>
                                             <span>ADDRESS: {studentBill.village}</span>
-                                            <span>DUES ON: {monthName[new Date().getMonth()]}</span>
+                                            <span>DUES ON: {studentBill.billGeneratedMonth > -1 ? monthName[studentBill.billGeneratedMonth] : "January"}</span>
                                         </div>
                                     </div>
                                     <div className='flex flex-col w-[96%] my-1 text-xs'>
@@ -105,7 +95,6 @@ const MonthBill = () => {
                                         <div className='flex justify-between'>
                                             <span>EXAM FEE:</span>
                                             <span>₹{studentBill.isExamFeeAdded ? studentBill.examFee : 0}</span>
-                                            {console.log(studentBill.isExamFeeAdded)}
                                         </div>
                                         <div className='flex justify-between'>
                                             <span>PREVIOUS DUES:</span>

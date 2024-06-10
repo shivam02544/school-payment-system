@@ -1,5 +1,4 @@
 import { connectDb } from "@/helper/connectDB";
-import SchoolDetail from "@/models/schoolDetailModel";
 import StudentSchema from "@/models/studentModel";
 import StudentPaymentBillSchema from "@/models/studentPaymentModel";
 import { NextResponse } from "next/server";
@@ -28,9 +27,9 @@ export const GET = async () => {
         otherFee: studentBill ? studentBill.otherFee : null,
         dueFee: studentBill ? studentBill.dueFee : null,
         isExamFeeAdded: studentBill ? studentBill.isExamFeeAdded : null,
+        billGeneratedMonth: studentBill ? studentBill.billGeneratedMonth : null,
       };
     });
-
     return NextResponse.json(mergedData, { status: 200 });
   } catch (error) {
     console.error("Error fetching student data:", error);
@@ -46,35 +45,28 @@ export const POST = async (request) => {
   const body = await request.json();
   const allBills = await StudentPaymentBillSchema.find();
   allBills.forEach(async (bill) => {
-    bill.otherFee = body.otherFee;
-    bill.lastRemainingFee = bill.dueFee;
-    bill.dueFee =
-      bill.lastRemainingFee +
-      bill.tuitionFee +
-      bill.otherFee +
-      bill.transportFee;
-    if (body.examFee == "yes") {
-      bill.dueFee = bill.dueFee + bill.examFee;
-      bill.isExamFeeAdded = true;
-    } else {
-      bill.isExamFeeAdded = false;
+    if (bill.billGeneratedMonth != new Date().getMonth()) {
+      bill.otherFee = body.otherFee;
+      bill.lastRemainingFee = bill.dueFee;
+      bill.dueFee =
+        bill.lastRemainingFee +
+        bill.tuitionFee +
+        bill.otherFee +
+        bill.transportFee;
+      if (body.examFee == "yes") {
+        bill.dueFee = bill.dueFee + bill.examFee;
+        bill.isExamFeeAdded = true;
+      } else {
+        bill.isExamFeeAdded = false;
+      }
+      bill.currenMonthPayedBill = 0;
+      bill.billGeneratedMonth = new Date().getMonth();
+      await bill.save();
+      const studentDetail = await StudentSchema.findById(bill.studentID);
+      studentDetail.otherFee = bill.dueFee;
+      await studentDetail.save();
     }
-    bill.currenMonthPayedBill = 0;
-    await bill.save();
-    const studentDetail = await StudentSchema.findById(bill.studentID);
-    studentDetail.otherFee = bill.dueFee;
-    await studentDetail.save();
   });
-  let schoolDetail = await SchoolDetail.findOne({}, "billGeneratedMonth");
-  if (schoolDetail) {
-    schoolDetail.billGeneratedMonth = new Date().getMonth();
-    await schoolDetail.save();
-  } else {
-    schoolDetail = new SchoolDetail({
-      billGeneratedMonth: new Date().getMonth(),
-    });
-    await schoolDetail.save();
-  }
   return NextResponse.json(
     {
       msg: "Bill generated successfully. You may see the students bill after clicking on Show Bill button.",

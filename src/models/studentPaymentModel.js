@@ -1,5 +1,10 @@
 import { Schema, model, models } from "mongoose";
 const StudentPaymentSchema = new Schema({
+  billGeneratedMonth: {
+    type: Number,
+    required: true,
+    default: -1,
+  },
   isExamFeeAdded: {
     type: Boolean,
     default: false,
@@ -49,6 +54,7 @@ const StudentPaymentSchema = new Schema({
     default: 0,
   },
 });
+
 const StudentPaymentBillSchema =
   models.StudentPaymentBill ||
   model("StudentPaymentBill", StudentPaymentSchema);

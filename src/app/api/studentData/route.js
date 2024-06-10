@@ -50,6 +50,7 @@ export const POST = async (request) => {
       examFee: student.examFee,
       otherFee: 0,
       billPaymentDetail: [],
+      billGeneratedMonth: new Date().getMonth() - 1,
     });
     await studentBill.save();
     return NextResponse.json({ msg: "Student data saved successfully" });
