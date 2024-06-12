@@ -4,13 +4,25 @@ import StudentPaymentBillSchema from "@/models/studentPaymentModel";
 import { NextResponse } from "next/server";
 export const GET = async (request) => {
   await connectDb();
+  let studentDetail = [];
   const { searchParams } = new URL(request.url);
-  const name = searchParams.get("name");
-  const className = searchParams.get("class");
-  const studentDetail = await StudentSchema.find({
-    name: name,
-    class: className,
-  });
+  const option = +searchParams.get("option");
+  const value = searchParams.get("value");
+  switch (option) {
+    case 1:
+      studentDetail = await StudentSchema.find({ name: value });
+      break;
+    case 2:
+      studentDetail = await StudentSchema.find({ fatherName: value });
+      break;
+    case 3:
+      studentDetail = await StudentSchema.find({ village: value });
+      break;
+    case 4:
+      studentDetail = await StudentSchema.find({ class: value });
+      break;
+  }
+
   if (studentDetail.length == 0) return NextResponse.json({ name: true });
   const studentBills = await Promise.all(
     studentDetail.map(async (student) => {

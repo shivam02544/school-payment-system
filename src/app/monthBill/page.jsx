@@ -66,7 +66,7 @@ const MonthBill = () => {
                     {
                         studentBills.map(studentBill => {
                             return (
-                                <div key='0' className='border-2 border-black w-[22rem] flex flex-col items-center m-1'>
+                                <div key='0' className='no-page-break border-2 border-black w-[22rem] flex flex-col items-center m-1'>
                                     <span className='text-sm'>Bill Payment Receipt</span>
                                     <div className='border-[1px] border-black text-sm'>
                                         <div className='flex flex-col items-center '>

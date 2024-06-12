@@ -15,7 +15,7 @@ const BillPayment = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObject = Object.fromEntries(formData.entries());
-    const res = await fetch(`${apiUrl}/api/studentBillPayment?name=${formObject.name}&class=${formObject.class}`)
+    const res = await fetch(`${apiUrl}/api/studentBillPayment?option=${formObject.option}&value=${formObject.value}`)
     const data = await res.json();
     if (data.name) {
       alert("Student is not available")
@@ -38,7 +38,7 @@ const BillPayment = () => {
       },
       body: JSON.stringify({ studentID: studentBill[index].studentID, amount: payedAmount }),
     })
-    // const data = await res.json();
+    alert("Payment Successful")
   }
 
   return (
@@ -49,21 +49,20 @@ const BillPayment = () => {
         <div className="my-4 flex items-center justify-center shadow-sm h-20">
           <span className="text-lg font-bold my-2">Search student by ▶ </span>
           <form className="flex" onSubmit={(e) => getStudentBill(e)}>
+            <select className="select select-bordered " name="option">
+              <option value="1" >Student name</option>
+              <option value="2">Father&apos;s name</option>
+              <option value="3">Village name</option>
+              <option value="4">Class</option>
+            </select>
             <input
               type="text"
-              placeholder="Student name"
+              placeholder="Search"
               className="input input-bordered w-full max-w-xs ml-2 "
-              name="name"
+              name="value"
               required
             />
-            <input
-              type="text"
-              placeholder="Class"
-              className="input input-bordered w-full max-w-xs ml-2 "
-              name="class"
-              required
-            />
-            <button className="btn font-bold text-lg ml-2 bg-orange-600 text-white " type="submit">Search</button>
+            <button className="btn font-bold text-lg ml-2 " type="submit">Search</button>
           </form>
         </div>
       </div>
