@@ -19,5 +19,8 @@ export const GET = async () => {
   currenMonthPayed.forEach((payed) => {
     totalPayed += +payed.currenMonthPayedBill;
   });
-  return NextResponse.json({ totalFee, totalPayed });
+  return NextResponse.json(
+    { totalFee, totalPayed },
+    { headers: { "Cache-Control": "no-store" } }
+  );
 };
