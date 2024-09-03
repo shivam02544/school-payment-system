@@ -30,6 +30,7 @@ export const GET = async () => {
         billGeneratedMonth: studentBill ? studentBill.billGeneratedMonth : null,
       };
     });
+    mergedData.sort((a, b) => a.class - b.class);
     return NextResponse.json(mergedData, { status: 200 });
   } catch (error) {
     console.error("Error fetching student data:", error);
