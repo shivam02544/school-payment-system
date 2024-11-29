@@ -33,11 +33,6 @@ const BillPaymentSlider = () => {
         document.body.style.pointerEvents = "auto";
         const data = await res.json()
         setStudentData(data)
-        console.log(data);
-
-
-
-
     };
     const nextStudent = async () => {
         setValue('');
@@ -54,11 +49,15 @@ const BillPaymentSlider = () => {
         }
         const data = await res.json()
         if (!data) {
+            console.log(studentData);
             alert("No student data found...")
             document.body.style.pointerEvents = "auto"
+            return
         }
         setStudentData(data);
         document.body.style.pointerEvents = "auto"
+        console.log(studentData);
+
     }
     const backStudent = async () => {
         setValue('');
@@ -79,6 +78,7 @@ const BillPaymentSlider = () => {
         if (!data) {
             alert("No student data found...")
             document.body.style.pointerEvents = "auto"
+            return
         }
         setStudentData(data);
         document.body.style.pointerEvents = "auto"
@@ -115,7 +115,7 @@ const BillPaymentSlider = () => {
             .then(res => res.json())
             .then(data => {
                 setStudentData(data);
-                console.log(data);
+
             })
 
     }, [currentStudentIndex])
@@ -124,7 +124,7 @@ const BillPaymentSlider = () => {
         <>
             <HeaderAfterLogin />
             {
-                studentData && (
+                (
                     <div className='flex flex-col items-center justify-center h-[86vh]'>
                         <form className='flex gap-3 my-2' onSubmit={(e) => searchBill(e)}>
                             <input
