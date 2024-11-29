@@ -14,6 +14,7 @@ const studentSchema = new Schema({
   transportFee: String,
   otherFee: String,
   examFee: String,
+  pageId: String,
 });
 const StudentSchema =
   models.StudentSchema || model("StudentSchema", studentSchema);

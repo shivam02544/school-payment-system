@@ -153,8 +153,14 @@ const AddStudent = () => {
                             max="1000000"
                             required
                         />
-
                     </div>
+                    <input
+                        type="text"
+                        placeholder="Page Number"
+                        className="input input-bordered w-full max-w-xs"
+                        name='PageId'
+                        required
+                    />
                     <button className='btn w-full' type='submit'> Add student</button>
                 </form>
             </div>

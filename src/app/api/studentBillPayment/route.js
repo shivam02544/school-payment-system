@@ -73,12 +73,15 @@ export const POST = async (request) => {
     transportFee: studentBill.transportFee,
     examFee: studentBill.examFee,
     lastRemainingFee: studentBill.lastRemainingFee,
-    otherFee: studentBill.otherFee,
-    dueFee: studentBill.dueFee,
+    otherFee: studentBill.dueFee,
     name: studentDetail.name,
     class: studentDetail.class,
     fatherName: studentDetail.fatherName,
     village: studentDetail.village,
+    _id: studentDetail._id,
+    mobileNumber: studentDetail.mobileNumber,
+    pageId: studentDetail.pageId,
   };
+
   return NextResponse.json(billData, { status: 200 });
 };

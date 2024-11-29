@@ -4,15 +4,7 @@ import React, { useEffect, useState } from 'react'
 const HeaderAfterLogin = ({ className }) => {
     const [dues, setDues] = useState();
     const [playedBill, setPayedBill] = useState()
-    useEffect(() => {
-        const fetchDues = async () => {
-            const response = await fetch('/api/calculateTotalDue');
-            const data = await response.json();
-            setDues(data.totalFee);
-            setPayedBill(data.totalPayed)
-        };
-        fetchDues();
-    }, []);
+
     return (
         <div className={`navbar bg-gray-200 flex px-6 shadow-md justify-between z-20 sticky top-0 ${className}`}>
             <Link href="/home">
@@ -21,11 +13,7 @@ const HeaderAfterLogin = ({ className }) => {
                     <h1 className='font-extrabold text-orange-600 text-2xl'>New Progressive Public School</h1>
                 </div>
             </Link>
-            <div >
-                <span className='font-bold border-r-2 border-gray-500 pr-4'>Dues: <span className='text-green-600 ml-1 text-lg font-extrabold'>₹{dues}</span></span>
-                <span className='font-bold pl-4'>Current month: <span className='text-green-600 ml-1 text-lg font-extrabold'>₹{playedBill}</span></span>
 
-            </div>
             <div className='gap-4'>
                 <button className='text-orange-600 font-bold text-lg active:text-orange-400'><Link href="/billPayment">Pay bill</Link></button>
                 <div className="dropdown dropdown-bottom dropdown-end">
@@ -35,6 +23,7 @@ const HeaderAfterLogin = ({ className }) => {
                         <li><Link href="/students">Search student</Link></li>
                         <li><Link href="#">Search student bill</Link></li>
                         <li><Link href="/monthBill">Print Monthly bill</Link></li>
+                        <li><Link href="/billPaymentSilder">Bill payment slider</Link></li>
                     </ul>
                 </div>
             </div>
