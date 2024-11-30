@@ -33,6 +33,7 @@ const BillPaymentSlider = () => {
         document.body.style.pointerEvents = "auto";
         const data = await res.json()
         setStudentData(data)
+        setValue("")
     };
     const nextStudent = async () => {
         setValue('');

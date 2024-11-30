@@ -122,6 +122,7 @@ const Students = () => {
                 <span>Transport fee: {student.transportFee}</span>
                 <span>Due fee: {student.otherFee}</span>
                 <span>Exam fee: {student.examFee}</span>
+                <span>Page id: {student.pageId}</span>
                 <div className="flex items-center justify-center gap-6 mt-2">
                   <button onClick={() => currentStudentDialogBox(index)} className="btn bg-orange-600 text-white">Edit</button>
                   <button onClick={() => deleteStudent(index)} className="btn bg-red-600 text-white">Delete</button>
@@ -288,8 +289,16 @@ const Students = () => {
                     onChange={(e) => setCurrentStudent({ ...currentStudent, examFee: e.target.value })}
                     required
                   />
-
                 </div>
+                <input
+                  type="text"
+                  placeholder="Page Number"
+                  className="input input-bordered w-full max-w-xs"
+                  name='PageId'
+                  value={currentStudent.pageId}
+                  onChange={(e) => setCurrentStudent({ ...currentStudent, pageId: e.target.value })}
+                  required
+                />
                 <button className='btn w-full' type='submit'> Save</button>
               </form>
             )
