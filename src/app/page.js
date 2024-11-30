@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function Home() {
     ) {
       router.push("/home");
     } else {
-      alert("Invalid username or password");
+      toast.error("Invalid username or password");
     }
     e.target.reset();
   }

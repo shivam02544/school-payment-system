@@ -1,6 +1,7 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React from 'react'
+import toast from 'react-hot-toast';
 const AddStudent = () => {
     const apiUrl = process.env.API_URL || '';
     async function handleSubmit(e) {
@@ -16,7 +17,7 @@ const AddStudent = () => {
                 body: JSON.stringify(formObject),
             })
             const data = await res.json();
-            alert(data.msg)
+            toast.success(data.msg)
 
         } catch (error) {
             console.log(error);

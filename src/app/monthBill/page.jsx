@@ -1,6 +1,7 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 const MonthBill = () => {
     const apiUrl = process.env.API_URL || '';
     const [studentBills, SetStudentBills] = useState([]);
@@ -27,9 +28,9 @@ const MonthBill = () => {
         })
         if (res.ok) {
             const result = await res.json();
-            alert(result.msg);
+            toast.success(result.msg);
         } else {
-            alert("Failed to generate bill.");
+            toast.error("Failed to generate bill.");
         }
     })
     async function showBill() {

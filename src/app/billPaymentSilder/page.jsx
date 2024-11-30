@@ -1,6 +1,7 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const BillPaymentSlider = () => {
     const apiUrl = process.env.API_URL || '';
@@ -27,12 +28,13 @@ const BillPaymentSlider = () => {
             body: JSON.stringify({ studentID: studentData._id, amount: value }),
         })
         if (!res.ok) {
-            alert("Something went wrong plz refresh the page...")
+            toast.error("Something went wrong plz refresh the page...")
             return
         }
         document.body.style.pointerEvents = "auto";
         const data = await res.json()
         setStudentData(data)
+        toast.success("Done")
         setValue("")
     };
     const nextStudent = async () => {
@@ -44,20 +46,19 @@ const BillPaymentSlider = () => {
         document.body.style.pointerEvents = "none";
         const res = await fetch(`${apiUrl}/api/updateRecord?pageId=${prefix + number}`)
         if (!res.ok) {
-            alert("Something went wrong plz refrese the tab")
+            toast.error("Something went wrong plz refrese the tab")
             document.body.style.pointerEvents = "auto";
             return
         }
         const data = await res.json()
         if (!data) {
-            console.log(studentData);
-            alert("No student data found...")
+            toast.error("No student data found...")
             document.body.style.pointerEvents = "auto"
             return
         }
         setStudentData(data);
         document.body.style.pointerEvents = "auto"
-        console.log(studentData);
+
 
     }
     const backStudent = async () => {
@@ -71,13 +72,13 @@ const BillPaymentSlider = () => {
         document.body.style.pointerEvents = "none";
         const res = await fetch(`${apiUrl}/api/updateRecord?pageId=${prefix + number}`)
         if (!res.ok) {
-            alert("Something went wrong plz refrese the tab")
+            toast.error("Something went wrong plz refrese the tab")
             document.body.style.pointerEvents = "auto";
             return
         }
         const data = await res.json()
         if (!data) {
-            alert("No student data found...")
+            toast.error("No student data found...")
             document.body.style.pointerEvents = "auto"
             return
         }
@@ -89,27 +90,26 @@ const BillPaymentSlider = () => {
         const formData = new FormData(e.target);
         const pageId = formData.get('pageId');
         if (!pageId) {
-            alert("Please enter a Page ID");
+            toast.error("Please enter a Page ID");
             return;
         }
         document.body.style.pointerEvents = "none";
 
         const res = await fetch(`${apiUrl}/api/updateRecord?pageId=${pageId}`)
         if (!res.ok) {
-            alert("Something went wrong plz refrese the tab")
+            toast.error("Something went wrong plz refrese the tab")
             document.body.style.pointerEvents = "auto";
             return
         }
         setCurrentStudentIndex(pageId);
         const data = await res.json()
         if (!data) {
-            alert("No student data found...")
+            toast.error("No student data found...")
             document.body.style.pointerEvents = "auto"
         }
         setStudentData(data);
         document.body.style.pointerEvents = "auto"
     }
-
 
     useEffect(() => {
         fetch(`${apiUrl}/api/updateRecord?pageId=${currentStudentIndex}`)
@@ -120,6 +120,8 @@ const BillPaymentSlider = () => {
             })
 
     }, [currentStudentIndex])
+
+
     return (
 
         <>

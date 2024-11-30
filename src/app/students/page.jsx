@@ -1,6 +1,7 @@
 "use client"
 import HeaderAfterLogin from "@/components/HeaderAfterLogin";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const Students = () => {
   const apiUrl = process.env.API_URL || '';
@@ -16,7 +17,7 @@ const Students = () => {
       const res = await fetch(`${apiUrl}/api/studentData?${queryParams}`)
       const data = await res.json();
       if (data.name) {
-        alert("Student is not available")
+        toast.error("Student is not available")
         setShowData(false);
       }
       else {
@@ -34,7 +35,7 @@ const Students = () => {
       const res = await fetch(`${apiUrl}/api/studentData?$option=0&search=all`)
       const data = await res.json();
       if (data.name) {
-        alert("Student is not available")
+        toast.error("Student is not available")
         setShowData(false);
       }
       else {
@@ -61,7 +62,7 @@ const Students = () => {
         body: JSON.stringify(student),
       })
       const data = await res.json();
-      alert(data.msg)
+      toast.success(data.msg)
       document.getElementById('my_modal_1').close()
       getAllStudentData()
     } catch (error) {
@@ -73,7 +74,7 @@ const Students = () => {
       method: 'DELETE',
     });
     const data = await res.json();
-    alert(data.msg)
+    toast.success(data.msg)
     getAllStudentData()
   }
   return (

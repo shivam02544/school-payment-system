@@ -1,6 +1,7 @@
 "use client"
 import HeaderAfterLogin from '@/components/HeaderAfterLogin'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 const BillPayment = () => {
   const apiUrl = process.env.API_URL || '';
   const [studentBill, setStudentBill] = useState([]);
@@ -18,7 +19,7 @@ const BillPayment = () => {
     const res = await fetch(`${apiUrl}/api/studentBillPayment?option=${formObject.option}&value=${formObject.value}`)
     const data = await res.json();
     if (data.name) {
-      alert("Student is not available")
+      toast.error("Student is not available")
       setStudentBill([]);
     } else {
       setStudentBill(data);
@@ -28,7 +29,7 @@ const BillPayment = () => {
   async function payBill(index) {
     let payedAmount = prompt(`Your total amount: ${studentBill[index].dueFee}`);
     if (!payedAmount) {
-      alert("Student payment is incomplete.");
+      toast.error("Student payment is incomplete.");
       return
     }
     const res = await fetch(`${apiUrl}/api/studentBillPayment`, {
@@ -38,7 +39,7 @@ const BillPayment = () => {
       },
       body: JSON.stringify({ studentID: studentBill[index].studentID, amount: payedAmount }),
     })
-    alert("Payment Successful")
+    toast.success("Payment Successful")
   }
 
   return (
