@@ -95,7 +95,7 @@ const MonthBill = () => {
                                     </div>
                                     <div className='flex flex-col w-[96%] my-1 text-xs'>
                                         <div className='flex justify-between'>
-                                            <span>TUITION FEE:</span>
+                                            <span>SCHOOL FEE:</span>
                                             <span>₹{studentBill.tuitionFee}</span>
                                         </div>
                                         <div className='flex justify-between'>
