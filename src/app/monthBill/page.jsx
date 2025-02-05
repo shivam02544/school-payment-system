@@ -36,8 +36,15 @@ const MonthBill = () => {
     async function showBill() {
         const res = await fetch(`${apiUrl}/api/studentBills`)
         let data = await res.json();
-        const classOrder = ["Pre-NC", "LKG", "UKG", "1", "2", "3", "4", "5", "6", "7", "8"];
-        data.sort((a, b) => classOrder.indexOf(a.class) - classOrder.indexOf(b.class));
+        const classOrder = ["Pre-NC", "NC", "LKG", "UKG", "1", "2", "3", "4", "5", "6", "7", "8"];
+        data.sort((a, b) => {
+            const aIndex = classOrder.indexOf(a.class);
+            const bIndex = classOrder.indexOf(b.class);
+            if (aIndex === -1 && bIndex === -1) return 0; // If both are not in the classOrder, keep their original order
+            if (aIndex === -1) return 1; // If a is not in the classOrder, move it to the end
+            if (bIndex === -1) return -1; // If b is not in the classOrder, move it to the end
+            return aIndex - bIndex; // Sort based on the classOrder
+        });
         SetStudentBills(data);
     }
 
