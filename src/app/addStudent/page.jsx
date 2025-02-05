@@ -159,7 +159,7 @@ const AddStudent = () => {
                         type="text"
                         placeholder="Page Number"
                         className="input input-bordered w-full max-w-xs"
-                        name='PageId'
+                        name='pageId'
                         required
                     />
                     <button className='btn w-full' type='submit'> Add student</button>
