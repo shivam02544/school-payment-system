@@ -12,7 +12,7 @@ const BillPaymentSlider = () => {
 
     const handleInput = (e) => {
         const input = e.target.value;
-        if (/^\d*-\d*$/.test(input)) {
+        if (/^-?\d*$/.test(input)) {
             setValue(input);
             setIsButtonDisabled(input.length === 0);
         }
